@@ -1,6 +1,6 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 
 export default function FeedScreen() {
@@ -21,6 +21,7 @@ export default function FeedScreen() {
       <FlatList
         data={outfits}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 80 }}
         renderItem={({ item }) => (
           <View style={styles.card}>
             {item.imageBase64 ? (

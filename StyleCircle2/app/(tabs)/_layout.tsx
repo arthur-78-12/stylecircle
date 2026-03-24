@@ -1,40 +1,55 @@
-import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-const outfits = [
-  { id: '1', user: 'Sophie', style: 'Streetwear', likes: 42 },
-  { id: '2', user: 'Lucas', style: 'Minimaliste', likes: 28 },
-  { id: '3', user: 'Emma', style: 'Vintage', likes: 65 },
-];
-
-export default function FeedScreen() {
+export default function TabLayout() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>StyleCircle</Text>
-      <FlatList
-        data={outfits}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <View style={styles.cardImage} />
-            <View style={styles.cardInfo}>
-              <Text style={styles.userName}>{item.user}</Text>
-              <Text style={styles.styleTag}>{item.style}</Text>
-              <Text style={styles.likes}>❤️ {item.likes}</Text>
-            </View>
-          </View>
-        )}
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#000',
+        tabBarInactiveTintColor: '#999',
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          borderTopWidth: 0.5,
+          borderTopColor: '#eee',
+        },
+        headerShown: false,
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Feed',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home-outline" size={24} color={color} />
+          ),
+        }}
       />
-    </View>
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Recherche',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="search-outline" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="publish"
+        options={{
+          title: 'Publier',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="add-circle-outline" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profil',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-outline" size={24} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', paddingTop: 60 },
-  header: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 },
-  card: { flexDirection: 'row', margin: 12, borderRadius: 12, backgroundColor: '#f9f9f9', overflow: 'hidden' },
-  cardImage: { width: 100, height: 120, backgroundColor: '#ddd' },
-  cardInfo: { padding: 12, justifyContent: 'center' },
-  userName: { fontSize: 16, fontWeight: 'bold' },
-  styleTag: { fontSize: 13, color: '#888', marginTop: 4 },
-  likes: { fontSize: 13, marginTop: 8 },
-});
